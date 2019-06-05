@@ -1,5 +1,5 @@
 function getData(){
-        $('#action').html("Authenticating...");
+        $('#action').html('<img src="/static/images/loading.gif">');
         var username = $('#username').val();
         var password = $('#password').val();
         var message = JSON.stringify({
@@ -15,11 +15,15 @@ function getData(){
             dataType:'json',
             success: function(response){
                 //alert(JSON.stringify(response));
-                $('#action').html(response['statusText']);
+                //$('#action').html('<img src="/static/images/ok.png">');
             },
             error: function(response){
                 //alert(JSON.stringify(response));
-                $('#action').html(response['statusText']);
+                if (response['status'] == 401) {
+                    $('#action').html('<img src="/static/images/fail.png">');
+                } else {
+                    $('#action').html('<img src="/static/images/ok.png">');
+                }
             }
         });
     }
